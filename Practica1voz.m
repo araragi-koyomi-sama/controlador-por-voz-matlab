@@ -36,23 +36,25 @@ for i=1:7
     plot(u',ft(1:round(L/2)+1),'b.',u',c,'r-')
     f=1;
     if i==1
-        a=xlswrite('filename',myRecording,1,strcat('A',num2str(f)))
+        xlswrite('filename.xlsx',ft,1,strcat('A',num2str(f)))
     elseif i==2
-        a=xlswrite('filename',myRecording,1,strcat('B',num2str(f)))
+        xlswrite('filename.xlsx',ft,1,strcat('B',num2str(f)))
     elseif i==3
-        a=xlswrite('filename',myRecording,1,strcat('C',num2str(f))) 
+        xlswrite('filename.xlsx',ft,1,strcat('C',num2str(f))) 
     elseif i==4
-        a=xlswrite('filename',myRecording,1,strcat('D',num2str(f))) 
+        xlswrite('filename.xlsx',ft,1,strcat('D',num2str(f))) 
     elseif i==5
-        a=xlswrite('filename',myRecording,1,strcat('E',num2str(f)))
+        xlswrite('filename.xlsx',ft,1,strcat('E',num2str(f)))
     elseif i==6
-        a=xlswrite('filename',myRecording,1,strcat('F',num2str(f)))
+        xlswrite('filename.xlsx',ft,1,strcat('F',num2str(f)))
     else 
-        a=xlswrite('filename',myRecording,1,strcat('G',num2str(f)))
+        xlswrite('filename.xlsx.',ft,1,strcat('G',num2str(f)))
         
     end
     suma1=suma1+myRecording;     
 end
 promedio=suma1/7
+promedioft=ft=abs(fft(promedio))/round(L/2)
+xlswrite('filename.xlsx.',ft,1,strcat('H',num2str(1)))
 
 
