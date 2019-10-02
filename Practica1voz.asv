@@ -1,0 +1,157 @@
+tiempo_grabacion=3;
+grabacion1=[];
+filename='C:\Users\Laura Monsalve\Documents\UdeA\Métodos de Fourier\PracticaVoz1';
+vect=[1 2 3 4 5 6 7]
+suma1=[]
+suma2=[]
+suma3=[]
+suma4=[]
+suma5=[]
+for i=1:7
+    recObj = audiorecorder;
+    disp ('Palabra 1')
+    disp('Start speaking...')
+    recordblocking(recObj, tiempo_grabacion);
+    disp('End of Recording...');
+    %frecuencia_muestreo=get(recObj,'SampleRate');
+    frecuencia_muestreo=get(recObj,'TotalSamples', );
+    % Play back the recording.
+    play(recObj)
+    % Store data in double-precision array.
+    myRecording = getaudiodata(recObj);
+    plot(myRecording);
+    L=size(myRecording,1);
+    pause(3);
+    N=2/(frecuencia_muestreo);
+    ft=abs(fft(myRecording))/round(L/2);
+    u=0:1/(N*round(L/2)):1/N;
+    plot(u',ft(1:round(L/2)+1))
+     axis([0 1000 0 0.01])
+    % Plot single-sided amplitude spectrum.
+    title('Espectro de Amplitude de una sola cara de y(t)')
+    xlabel('Frequencia (Hz)')
+    ylabel('|Y(f)|')
+    pause(5)
+    c = smooth(u',ft(1:round(L/2)+1),0.1,'loess');
+    plot(u',ft(1:round(L/2)+1),'b.',u',c,'r-')
+    a=xlswrite('filename',myRecording,1,'A2')
+    suma1=suma1+myRecording
+    
+end
+promedio=suma1/7
+for i=1:7
+    recObj = audiorecorder;
+    disp ('Palabra 2')
+    disp('Start speaking...')
+    recordblocking(recObj, tiempo_grabacion);
+    disp('End of Recording...');
+    frecuencia_muestreo=get(recObj,'SampleRate');
+    % Play back the recording.
+    play(recObj)
+    % Store data in double-precision array.
+    myRecording = getaudiodata(recObj);
+    plot(myRecording);
+    L=size(myRecording,1);
+    pause(3);
+    N=2/(frecuencia_muestreo);
+    ft=abs(fft(myRecording))/round(L/2);
+    u=0:1/(N*round(L/2)):1/N;
+    plot(u',ft(1:round(L/2)+1))
+     axis([0 1000 0 0.01])
+    % Plot single-sided amplitude spectrum.
+    title('Espectro de Amplitude de una sola cara de y(t)')
+    xlabel('Frequencia (Hz)')
+    ylabel('|Y(f)|')
+    pause(5)
+    c = smooth(u',ft(1:round(L/2)+1),0.1,'loess');
+    plot(u',ft(1:round(L/2)+1),'b.',u',c,'r-')
+    a=xlswrite('filename',myRecording,1,'B2')
+    
+end
+for i=1:7
+    recObj = audiorecorder;
+    disp ('Palabra 3')
+    disp('Start speaking...')
+    recordblocking(recObj, tiempo_grabacion);
+    disp('End of Recording...');
+    frecuencia_muestreo=get(recObj,'SampleRate');
+    % Play back the recording.
+    play(recObj)
+    % Store data in double-precision array.
+    myRecording = getaudiodata(recObj);
+    plot(myRecording);
+    L=size(myRecording,1);
+    pause(3);
+    N=2/(frecuencia_muestreo);
+    ft=abs(fft(myRecording))/round(L/2);
+    u=0:1/(N*round(L/2)):1/N;
+    plot(u',ft(1:round(L/2)+1))
+     axis([0 1000 0 0.01])
+    % Plot single-sided amplitude spectrum.
+    title('Espectro de Amplitude de una sola cara de y(t)')
+    xlabel('Frequencia (Hz)')
+    ylabel('|Y(f)|')
+    pause(5)
+    c = smooth(u',ft(1:round(L/2)+1),0.1,'loess');
+    plot(u',ft(1:round(L/2)+1),'b.',u',c,'r-')
+    a=xlswrite('filename',myRecording,1,'C2')
+    
+end
+for i=1:7
+    recObj = audiorecorder(44100,16,1,-1);
+    disp ('Palabra 4')
+    disp('Start speaking...')
+    recordblocking(recObj, tiempo_grabacion);
+    disp('End of Recording...');
+    frecuencia_muestreo=get(recObj,'SampleRate');
+    % Play back the recording.
+    play(recObj)
+    % Store data in double-precision array.
+    myRecording = getaudiodata(recObj);
+    plot(myRecording);
+    L=size(myRecording,1);
+    pause(3);
+    N=2/(frecuencia_muestreo);
+    ft=abs(fft(myRecording))/round(L/2);
+    u=0:1/(N*round(L/2)):1/N;
+    plot(u',ft(1:round(L/2)+1))
+     axis([0 1000 0 0.01])
+    % Plot single-sided amplitude spectrum.
+    title('Espectro de Amplitude de una sola cara de y(t)')
+    xlabel('Frequencia (Hz)')
+    ylabel('|Y(f)|')
+    pause(5)
+    c = smooth(u',ft(1:round(L/2)+1),0.1,'loess');
+    plot(u',ft(1:round(L/2)+1),'b.',u',c,'r-')
+    a=xlswrite('filename',myRecording,1,'D2')
+    
+end
+for i=1:7
+    recObj = audiorecorder;
+    disp ('Palabra 5')
+    disp('Start speaking...')
+    recordblocking(recObj, tiempo_grabacion);
+    disp('End of Recording...');
+    frecuencia_muestreo=get(recObj,'SampleRate');
+    % Play back the recording.
+    play(recObj)
+    % Store data in double-precision array.
+    myRecording = getaudiodata(recObj);
+    plot(myRecording);
+    L=size(myRecording,1);
+    pause(3);
+    N=2/(frecuencia_muestreo);
+    ft=abs(fft(myRecording))/round(L/2);
+    u=0:1/(N*round(L/2)):1/N;
+    plot(u',ft(1:round(L/2)+1))
+     axis([0 1000 0 0.01])
+    % Plot single-sided amplitude spectrum.
+    title('Espectro de Amplitude de una sola cara de y(t)')
+    xlabel('Frequencia (Hz)')
+    ylabel('|Y(f)|')
+    pause(5)
+    c = smooth(u',ft(1:round(L/2)+1),0.1,'loess');
+    plot(u',ft(1:round(L/2)+1),'b.',u',c,'r-')
+    a=xlswrite('filename',myRecording,1,'E2')
+    
+end
