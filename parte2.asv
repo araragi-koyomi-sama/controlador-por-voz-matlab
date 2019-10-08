@@ -1,0 +1,9 @@
+%lectura de los promedios en la ba
+arriba=xlsread('filename1.xlsx',1,'H1:H88200');
+derecha=xlsread('filename1.xlsx',3,'H1:H88200');
+arriba1=xlsread('filename1.xlsx',1,'A1:A88200');
+derecha1=xlsread('filename1.xlsx',3,'A1:A88200');
+%calculo del error para comparar palabras
+%es mejor utilizar el cuadrado que el valor absoluto para asegurar
+%presición
+resta=arriba

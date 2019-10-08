@@ -7,6 +7,7 @@ suma2=zeros(88200,1);
 suma3=zeros(88200,1);
 suma4=zeros(88200,1);
 suma5=zeros(88200,1);
+transformadas=[];
 for i=1:7
     recObj = audiorecorder(44100, 16, 1, -1);
     disp ('Palabra 1')
@@ -24,6 +25,8 @@ for i=1:7
     pause(3);
     N=2/(frecuencia_muestreo);
     ft=abs(fft(myRecording))/round(L/2);
+    %matriz para guardar transformadas
+    transformadas(:,i)=ft;
     u=0:1/(N*round(L/2)):1/N;
     plot(u',ft(1:round(L/2)+1))
      axis([0 1000 0 0.01])
@@ -48,13 +51,19 @@ for i=1:7
     elseif i==6
         xlswrite('filename.xlsx',ft,1,strcat('F',num2str(f)))
     else 
-        xlswrite('filename.xlsx.',ft,1,strcat('G',num2str(f)))
+        xlswrite('filename.xlsx',ft,1,strcat('G',num2str(f)))
         
     end
     suma1=suma1+myRecording;     
 end
-promedio=suma1/7
-promedioft=ft=abs(fft(promedio))/round(L/2)
-xlswrite('filename.xlsx.',ft,1,strcat('H',num2str(1)))
+errores=[];
+promedio=suma1/7;
+promedioft=abs(fft(promedio))/round(L/2);
+for i=1:7
+    resta=mean(abs(promedio-transformadas(i)));
+    errores(i)=resta;
+end
+xlswrite('filename.xlsx',promedioft,1,strcat('H',num2str(f)))
+xlswrite('filename.xlsx',errores',1,'I1')
 
 
