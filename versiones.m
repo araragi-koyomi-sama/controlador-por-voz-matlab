@@ -23,7 +23,6 @@ for i=1:7
     myRecording = getaudiodata(recObj);
     plot(myRecording);
     L=size(myRecording,1);
-    pause(3);
     N=2/(frecuencia_muestreo);
     ft=abs(fft(myRecording))/round(L/2);
     transformadas(:,i)=ft;
@@ -38,19 +37,19 @@ for i=1:7
     plot(u',ft(1:round(L/2)+1),'b.',u',c,'r-')
     f=1;
     if i==1
-        xlswrite('filename1.xlsx',ft,1,strcat('A',num2str(f)))
+        xlswrite('filename1.xlsx',c,1,strcat('A',num2str(f)))
     elseif i==2
-        xlswrite('filename1.xlsx',ft,1,strcat('B',num2str(f)))
+        xlswrite('filename1.xlsx',c,1,strcat('B',num2str(f)))
     elseif i==3
-        xlswrite('filename1.xlsx',ft,1,strcat('C',num2str(f))) 
+        xlswrite('filename1.xlsx',c,1,strcat('C',num2str(f))) 
     elseif i==4
-        xlswrite('filename1.xlsx',ft,1,strcat('D',num2str(f))) 
+        xlswrite('filename1.xlsx',c,1,strcat('D',num2str(f))) 
     elseif i==5
-        xlswrite('filename1.xlsx',ft,1,strcat('E',num2str(f)))
+        xlswrite('filename1.xlsx',c,1,strcat('E',num2str(f)))
     elseif i==6
-        xlswrite('filename1.xlsx',ft,1,strcat('F',num2str(f)))
+        xlswrite('filename1.xlsx',c,1,strcat('F',num2str(f)))
     else 
-        xlswrite('filename1.xlsx',ft,1,strcat('G',num2str(f)))
+        xlswrite('filename1.xlsx',c,1,strcat('G',num2str(f)))
         
     end
     suma1=suma1+myRecording;     
@@ -84,7 +83,6 @@ for i=1:7
     myRecording = getaudiodata(recObj);
     plot(myRecording);
     L=size(myRecording,1);
-    pause(3);
     N=2/(frecuencia_muestreo);
     ft=abs(fft(myRecording))/round(L/2);
     transformadas(:,i)=ft;
@@ -99,19 +97,19 @@ for i=1:7
     plot(u',ft(1:round(L/2)+1),'b.',u',c,'r-')
     f=1;
     if i==1
-        xlswrite('filename1.xlsx',ft,2,strcat('A',num2str(f)))
+        xlswrite('filename1.xlsx',c,2,strcat('A',num2str(f)))
     elseif i==2
-        xlswrite('filename1.xlsx',ft,2,strcat('B',num2str(f)))
+        xlswrite('filename1.xlsx',c,2,strcat('B',num2str(f)))
     elseif i==3
-        xlswrite('filename1.xlsx',ft,2,strcat('C',num2str(f))) 
+        xlswrite('filename1.xlsx',c,2,strcat('C',num2str(f))) 
     elseif i==4
-        xlswrite('filename1.xlsx',ft,2,strcat('D',num2str(f))) 
+        xlswrite('filename1.xlsx',c,2,strcat('D',num2str(f))) 
     elseif i==5
-        xlswrite('filename1.xlsx',ft,2,strcat('E',num2str(f)))
+        xlswrite('filename1.xlsx',c,2,strcat('E',num2str(f)))
     elseif i==6
-        xlswrite('filename1.xlsx',ft,2,strcat('F',num2str(f)))
+        xlswrite('filename1.xlsx',c,2,strcat('F',num2str(f)))
     else 
-        xlswrite('filename1.xlsx',ft,2,strcat('G',num2str(f)))
+        xlswrite('filename1.xlsx',c,2,strcat('G',num2str(f)))
         
     end
     suma2=suma2+myRecording;     
@@ -145,7 +143,6 @@ for i=1:7
     myRecording = getaudiodata(recObj);
     plot(myRecording);
     L=size(myRecording,1);
-    pause(3);
     N=2/(frecuencia_muestreo);
     ft=abs(fft(myRecording))/round(L/2);
     transformadas(:,i)=ft;
@@ -160,19 +157,19 @@ for i=1:7
     plot(u',ft(1:round(L/2)+1),'b.',u',c,'r-')
     f=1;
     if i==1
-        xlswrite('filename1.xlsx',ft,3,strcat('A',num2str(f)))
+        xlswrite('filename1.xlsx',c,3,strcat('A',num2str(f)))
     elseif i==2
-        xlswrite('filename1.xlsx',ft,3,strcat('B',num2str(f)))
+        xlswrite('filename1.xlsx',c,3,strcat('B',num2str(f)))
     elseif i==3
-        xlswrite('filename1.xlsx',ft,3,strcat('C',num2str(f))) 
+        xlswrite('filename1.xlsx',c,3,strcat('C',num2str(f))) 
     elseif i==4
-        xlswrite('filename1.xlsx',ft,3,strcat('D',num2str(f))) 
+        xlswrite('filename1.xlsx',c,3,strcat('D',num2str(f))) 
     elseif i==5
-        xlswrite('filename1.xlsx',ft,3,strcat('E',num2str(f)))
+        xlswrite('filename1.xlsx',c,3,strcat('E',num2str(f)))
     elseif i==6
-        xlswrite('filename1.xlsx',ft,3,strcat('F',num2str(f)))
+        xlswrite('filename1.xlsx',c,3,strcat('F',num2str(f)))
     else 
-        xlswrite('filename1.xlsx',ft,3,strcat('G',num2str(f)))
+        xlswrite('filename1.xlsx',c,3,strcat('G',num2str(f)))
         
     end
     suma3=suma3+myRecording;     
@@ -216,24 +213,23 @@ for i=1:7
     title('Espectro de Amplitud de una sola cara de y(t)')
     xlabel('Frequencia (Hz)')
     ylabel('|Y(f)|')
-    pause(5)
     c = smooth(u',ft(1:round(L/2)+1),0.1,'loess');
     plot(u',ft(1:round(L/2)+1),'b.',u',c,'r-')
     f=1;
     if i==1
-        xlswrite('filename1.xlsx',ft,4,strcat('A',num2str(f)))
+        xlswrite('filename1.xlsx',c,4,strcat('A',num2str(f)))
     elseif i==2
-        xlswrite('filename1.xlsx',ft,4,strcat('B',num2str(f)))
+        xlswrite('filename1.xlsx',c,4,strcat('B',num2str(f)))
     elseif i==3
-        xlswrite('filename1.xlsx',ft,4,strcat('C',num2str(f))) 
+        xlswrite('filename1.xlsx',c,4,strcat('C',num2str(f))) 
     elseif i==4
-        xlswrite('filename1.xlsx',ft,4,strcat('D',num2str(f))) 
+        xlswrite('filename1.xlsx',c,4,strcat('D',num2str(f))) 
     elseif i==5
-        xlswrite('filename1.xlsx',ft,4,strcat('E',num2str(f)))
+        xlswrite('filename1.xlsx',c,4,strcat('E',num2str(f)))
     elseif i==6
-        xlswrite('filename1.xlsx',ft,4,strcat('F',num2str(f)))
+        xlswrite('filename1.xlsx',c,4,strcat('F',num2str(f)))
     else 
-        xlswrite('filename1.xlsx',ft,4,strcat('G',num2str(f)))
+        xlswrite('filename1.xlsx',c,4,strcat('G',num2str(f)))
         
     end
     suma4=suma4+myRecording;     
@@ -277,24 +273,23 @@ for i=1:7
     title('Espectro de Amplitud de una sola cara de y(t)')
     xlabel('Frequencia (Hz)')
     ylabel('|Y(f)|')
-    pause(5)
     c = smooth(u',ft(1:round(L/2)+1),0.1,'loess');
     plot(u',ft(1:round(L/2)+1),'b.',u',c,'r-')
     f=1;
     if i==1
-        xlswrite('filename1.xlsx',ft,5,strcat('A',num2str(f)))
+        xlswrite('filename1.xlsx',c,5,strcat('A',num2str(f)))
     elseif i==2
-        xlswrite('filename1.xlsx',ft,5,strcat('B',num2str(f)))
+        xlswrite('filename1.xlsx',c,5,strcat('B',num2str(f)))
     elseif i==3
-        xlswrite('filename1.xlsx',ft,5,strcat('C',num2str(f))) 
+        xlswrite('filename1.xlsx',c,5,strcat('C',num2str(f))) 
     elseif i==4
-        xlswrite('filename1.xlsx',ft,5,strcat('D',num2str(f))) 
+        xlswrite('filename1.xlsx',c,5,strcat('D',num2str(f))) 
     elseif i==5
-        xlswrite('filename1.xlsx',ft,5,strcat('E',num2str(f)))
+        xlswrite('filename1.xlsx',c,5,strcat('E',num2str(f)))
     elseif i==6
-        xlswrite('filename1.xlsx',ft,5,strcat('F',num2str(f)))
+        xlswrite('filename1.xlsx',c,5,strcat('F',num2str(f)))
     else 
-        xlswrite('filename1.xlsx',ft,5,strcat('G',num2str(f)))
+        xlswrite('filename1.xlsx',c,5,strcat('G',num2str(f)))
         
     end
     suma5=suma5+myRecording;     
