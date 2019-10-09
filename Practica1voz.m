@@ -22,6 +22,7 @@ for i=1:7
     myRecording = getaudiodata(recObj);
     plot(myRecording);
     L=size(myRecording,1);
+    
     pause(3);
     N=2/(frecuencia_muestreo);
     ft=abs(fft(myRecording))/round(L/2);

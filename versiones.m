@@ -1,12 +1,13 @@
+format long
 tiempo_grabacion=2;
 grabacion1=[];
 filename1='C:\Users\mELIZA\Documents\MATLAB\Voz';
 vect=[1 2 3 4 5 6 7];
-suma1=zeros(88200,1);
-suma2=zeros(88200,1);
-suma3=zeros(88200,1);
-suma4=zeros(88200,1);
-suma5=zeros(88200,1);
+suma1=zeros(44101,1);
+suma2=zeros(44101,1);
+suma3=zeros(44101,1);
+suma4=zeros(44101,1);
+suma5=zeros(44101,1);
 transformadas=[];
 grppromedios=[];
 for i=1:7
@@ -21,11 +22,12 @@ for i=1:7
     play(recObj)
     % Store data in double-precision array.
     myRecording = getaudiodata(recObj);
+    myRecording=smooth(myRecording,0.1,'loess');
+    normalizado=normalizar(myRecording);
     plot(myRecording);
     L=size(myRecording,1);
     N=2/(frecuencia_muestreo);
-    ft=abs(fft(myRecording))/round(L/2);
-    transformadas(:,i)=ft;
+    ft=abs(fft(normalizado))/round(L/2);
     u=0:1/(N*round(L/2)):1/N;
     plot(u',ft(1:round(L/2)+1))
      axis([0 1000 0 0.01])
@@ -33,7 +35,9 @@ for i=1:7
     title('Espectro de Amplitud de una sola cara de y(t)')
     xlabel('Frequencia (Hz)')
     ylabel('|Y(f)|')
-    c = smooth(u',ft(1:round(L/2)+1),0.1,'loess');
+   % c = smooth(u',ft(1:round(L/2)+1),0.1,'loess');
+    c=ft(1:round(L/2)+1);
+    transformadas(:,i)=c;
     plot(u',ft(1:round(L/2)+1),'b.',u',c,'r-')
     f=1;
     if i==1
@@ -52,21 +56,22 @@ for i=1:7
         xlswrite('filename1.xlsx',c,1,strcat('G',num2str(f)))
         
     end
-    suma1=suma1+myRecording;     
+    suma1=suma1+c;     
 end
 promedio=suma1/7
-promedioft=abs(fft(promedio))/round(L/2);
-grppromedios=promedioft';
+
+%promedioft=abs(fft(promedio))/round(L/2);
+grppromedios=promedio';
 title('Promedio Espectro de Amplitud de una sola cara de y(t)')
 xlabel('Frequencia (Hz)')
 ylabel('|Y(f)|')
-plot(u,grppromedios(1:round(L/2)+1))
+plot(u,grppromedios)
 for i=1:7
     resta=mean(abs(promedio-transformadas(i)));
     errores(i)=resta;
 
 end
-xlswrite('filename1.xlsx',promedioft,1,strcat('H',num2str(f)))
+xlswrite('filename1.xlsx',promedio,1,strcat('H',num2str(f)))
 xlswrite('filename1.xlsx',errores',1,'I1')
 
 for i=1:7
@@ -81,11 +86,12 @@ for i=1:7
     play(recObj)
     % Store data in double-precision array.
     myRecording = getaudiodata(recObj);
+    myRecording=smooth(myRecording,0.1,'loess');
+    normalizado=normalizar(myRecording);
     plot(myRecording);
     L=size(myRecording,1);
     N=2/(frecuencia_muestreo);
-    ft=abs(fft(myRecording))/round(L/2);
-    transformadas(:,i)=ft;
+    ft=abs(fft(normalizado))/round(L/2);
     u=0:1/(N*round(L/2)):1/N;
     plot(u',ft(1:round(L/2)+1))
      axis([0 1000 0 0.01])
@@ -93,7 +99,8 @@ for i=1:7
     title('Espectro de Amplitud de una sola cara de y(t)')
     xlabel('Frequencia (Hz)')
     ylabel('|Y(f)|')
-    c = smooth(u',ft(1:round(L/2)+1),0.1,'loess');
+    c = ft(1:round(L/2)+1);
+    transformadas(:,i)=c;
     plot(u',ft(1:round(L/2)+1),'b.',u',c,'r-')
     f=1;
     if i==1
@@ -112,21 +119,21 @@ for i=1:7
         xlswrite('filename1.xlsx',c,2,strcat('G',num2str(f)))
         
     end
-    suma2=suma2+myRecording;     
+    suma2=suma2+c;     
 end
 promedio=suma2/7
-promedioft=abs(fft(promedio))/round(L/2);
-grppromedios=promedioft';
+%promedioft=abs(fft(promedio))/round(L/2);
+grppromedios=promedio';
 title('Promedio Espectro de Amplitud de una sola cara de y(t)')
 xlabel('Frequencia (Hz)')
 ylabel('|Y(f)|')
-plot(u,grppromedios(1:round(L/2)+1))
+plot(u,grppromedios)
 for i=1:7
     resta=mean(abs(promedio-transformadas(i)));
     errores(i)=resta;
 
 end
-xlswrite('filename1.xlsx',promedioft,2,strcat('H',num2str(f)))
+xlswrite('filename1.xlsx',promedio,2,strcat('H',num2str(f)))
 xlswrite('filename1.xlsx',errores',2,'I1')
 
 for i=1:7
@@ -141,11 +148,12 @@ for i=1:7
     play(recObj)
     % Store data in double-precision array.
     myRecording = getaudiodata(recObj);
+    myRecording=smooth(myRecording,0.1,'loess');
+    normalizado=normalizar(myRecording);
     plot(myRecording);
     L=size(myRecording,1);
     N=2/(frecuencia_muestreo);
-    ft=abs(fft(myRecording))/round(L/2);
-    transformadas(:,i)=ft;
+    ft=abs(fft(normalizado))/round(L/2);
     u=0:1/(N*round(L/2)):1/N;
     plot(u',ft(1:round(L/2)+1))
      axis([0 1000 0 0.01])
@@ -153,7 +161,8 @@ for i=1:7
     title('Espectro de Amplitud de una sola cara de y(t)')
     xlabel('Frequencia (Hz)')
     ylabel('|Y(f)|')
-    c = smooth(u',ft(1:round(L/2)+1),0.1,'loess');
+    c = ft(1:round(L/2)+1);
+    transformadas(:,i)=c;
     plot(u',ft(1:round(L/2)+1),'b.',u',c,'r-')
     f=1;
     if i==1
@@ -172,18 +181,18 @@ for i=1:7
         xlswrite('filename1.xlsx',c,3,strcat('G',num2str(f)))
         
     end
-    suma3=suma3+myRecording;     
+    suma3=suma3+c;     
 end
-promedio=suma3/7
-promedioft=abs(fft(promedio))/round(L/2);
+promedio=suma3/7;
+%promedioft=abs(fft(promedio))/round(L/2);
 for i=1:7
     resta=mean(abs(promedio-transformadas(i)));
     errores(i)=resta;
 
 end
-xlswrite('filename1.xlsx',promedioft,3,strcat('H',num2str(f)))
+xlswrite('filename1.xlsx',promedio,3,strcat('H',num2str(f)))
 xlswrite('filename1.xlsx',errores',3,'I1')
-grppromedios=promedioft';
+grppromedios=promedio';
 title('Promedio Espectro de Amplitud de una sola cara de y(t)')
 xlabel('Frequencia (Hz)')
 ylabel('|Y(f)|')
@@ -203,17 +212,19 @@ for i=1:7
     myRecording = getaudiodata(recObj);
     plot(myRecording);
     L=size(myRecording,1);
+    myRecording=smooth(myRecording,0.1,'loess');
+    normalizado=normalizar(myRecording);
     N=2/(frecuencia_muestreo);
-    ft=abs(fft(myRecording))/round(L/2);
-    transformadas(:,i)=ft;
+    ft=abs(fft(normalizado))/round(L/2);
     u=0:1/(N*round(L/2)):1/N;
     plot(u',ft(1:round(L/2)+1))
-     axis([0 1000 0 0.01])
+    axis([0 1000 0 0.01])
     % Plot single-sided amplitude spectrum.
     title('Espectro de Amplitud de una sola cara de y(t)')
     xlabel('Frequencia (Hz)')
     ylabel('|Y(f)|')
-    c = smooth(u',ft(1:round(L/2)+1),0.1,'loess');
+    c = ft(1:round(L/2)+1);
+    transformadas(:,i)=c;
     plot(u',ft(1:round(L/2)+1),'b.',u',c,'r-')
     f=1;
     if i==1
@@ -232,11 +243,10 @@ for i=1:7
         xlswrite('filename1.xlsx',c,4,strcat('G',num2str(f)))
         
     end
-    suma4=suma4+myRecording;     
+    suma4=suma4+c;     
 end
 promedio=suma4/7
-promedioft=abs(fft(promedio))/round(L/2);
-grppromedios=promedioft';
+grppromedios=promedio';
 title('Promedio Espectro de Amplitud de una sola cara de y(t)')
 xlabel('Frequencia (Hz)')
 ylabel('|Y(f)|')
@@ -246,7 +256,7 @@ for i=1:7
     errores(i)=resta;
 
 end
-xlswrite('filename1.xlsx',promedioft,4,strcat('H',num2str(f)))
+xlswrite('filename1.xlsx',promedio,4,strcat('H',num2str(f)))
 xlswrite('filename1.xlsx',errores',4,'I1')
 
 for i=1:7
@@ -263,17 +273,19 @@ for i=1:7
     myRecording = getaudiodata(recObj);
     plot(myRecording);
     L=size(myRecording,1);
+    myRecording=smooth(myRecording,0.1,'loess');
+    normalizado=normalizar(myRecording);
     N=2/(frecuencia_muestreo);
-    ft=abs(fft(myRecording))/round(L/2);
-    transformadas(:,i)=ft;
+    ft=abs(fft(normalizado))/round(L/2);
     u=0:1/(N*round(L/2)):1/N;
     plot(u',ft(1:round(L/2)+1))
-     axis([0 1000 0 0.01])
+    axis([0 1000 0 0.01])
     % Plot single-sided amplitude spectrum.
     title('Espectro de Amplitud de una sola cara de y(t)')
     xlabel('Frequencia (Hz)')
     ylabel('|Y(f)|')
-    c = smooth(u',ft(1:round(L/2)+1),0.1,'loess');
+    c = ft(1:round(L/2)+1);
+    transformadas(:,i)=c;
     plot(u',ft(1:round(L/2)+1),'b.',u',c,'r-')
     f=1;
     if i==1
@@ -292,11 +304,11 @@ for i=1:7
         xlswrite('filename1.xlsx',c,5,strcat('G',num2str(f)))
         
     end
-    suma5=suma5+myRecording;     
+    suma5=suma5+c;     
 end
 promedio=suma5/7
-promedioft=abs(fft(promedio))/round(L/2);
-grppromedios=promedioft';
+%promedioft=abs(fft(promedio))/round(L/2);
+grppromedios=promedio';
 title('Promedio Espectro de Amplitud de una sola cara de y(t)')
 xlabel('Frequencia (Hz)')
 ylabel('|Y(f)|')
@@ -307,5 +319,5 @@ for i=1:7
     errores(i)=resta;
 
 end
-xlswrite('filename1.xlsx',promedioft,5,strcat('H',num2str(f)))
+xlswrite('filename1.xlsx',promedio,5,strcat('H',num2str(f)))
 xlswrite('filename1.xlsx',errores',5,'I1')
