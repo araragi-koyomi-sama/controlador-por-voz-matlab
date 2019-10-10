@@ -1,39 +1,30 @@
 format long
 %lectura de los promedios en la base de datos
-arriba=xlsread('filename1.xlsx',1,'H1:H88200');
-abajo=xlsread('filename1.xlsx',2,'H1:H88200');
-derecha=xlsread('filename1.xlsx',3,'H1:H88200');
-izquierda=xlsread('filename1.xlsx',4,'H1:H88200');
-navegar=xlsread('filename1.xlsx',5,'H1:H88200');
-
-%lectura de algunas variables de prueba
-% arriba1=xlsread('filename1.xlsx',1,'A1:A88200');
-% derecha1=xlsread('filename1.xlsx',3,'B1:B88200');
-% abajo1=xlsread('filename1.xlsx',2,'E1:E88200');
-%calculo del error para comparar palabras
-%mean absolute error
-%la primera palabra en el nombre de los errores representa el promedio 
-%la segunda palabra representa la palabra prueba
-% error_arriba_arriba=mean(sqrt((arriba-arriba1).^2))
-% error_abajo_abajo=mean(sqrt((abajo-abajo1).^2))
-% error_arriba_abajo=mean(sqrt((abajo1-arriba).^2))
-% error_abajo_arriba=mean(sqrt((abajo-arriba1).^2))
-% error_arriba_derecha=mean(sqrt((arriba-derecha1).^2))
-% error_derecha_arriba=mean(sqrt((derecha-arriba1).^2))
-% error_derecha_derecha=mean(sqrt((derecha-derecha1).^2))
-% error_derecha_abajo=mean(sqrt((derecha-abajo1).^2))
-% error_abajo_derecha=mean(sqrt((derecha1-abajo).^2))
-%comando para setear la posicion del cursor
+arriba=xlsread('filename1.xlsx',1,'A1:A44100');
+abajo=xlsread('filename1.xlsx',2,'B1:B44100');
+derecha=xlsread('filename1.xlsx',3,'A1:A44100');
+izquierda=xlsread('filename1.xlsx',4,'A1:A44100');
+navegar=xlsread('filename1.xlsx',5,'E1:E44100');
  %set(0,'PointerLocation',[100 100])
  %comando para encontrar la posicion del cursor
  %get(0,'PointerLocation')
- tiempo_grabacion=2
+ pico_arriba=sort(findpeaks(arriba),'descend');
+ pico_arriba=pico_arriba(1:100,1);
+ pico_abajo=sort(findpeaks(abajo),'descend');
+ pico_abajo=pico_abajo(1:100,1);
+ pico_derecha=sort(findpeaks(derecha),'descend');
+ pico_derecha=pico_derecha(1:100,1);
+ pico_izquierda=sort(findpeaks(izquierda),'descend');
+ pico_izquierda=pico_izquierda(1:100,1);
+ pico_navegar=sort(findpeaks(navegar),'descend');
+ pico_navegar=pico_navegar(1:100,1);
+ tiempo_grabacion=2;
  recObj = audiorecorder(44100, 16, 1, -1);
  disp('Start speaking...')
  recordblocking(recObj, tiempo_grabacion);
  disp('End of Recording...');
- tiempo_grabacion=2
- frecuencia_muestreo=get(recObj,'SampleRate')
+ tiempo_grabacion=2;
+ frecuencia_muestreo=get(recObj,'SampleRate');
  play(recObj);
  palabra = getaudiodata(recObj);
  palabra=smooth(palabra,0.1,'loess');
@@ -41,11 +32,14 @@ navegar=xlsread('filename1.xlsx',5,'H1:H88200');
  L=size(palabra,1);
  N=2/(frecuencia_muestreo);
  ft=abs(fft(normalizado))/round(L/2);
- transformadas(:,1)=ft;
  u=0:1/(N*round(L/2)):1/N;
  %c = smooth(u',ft(1:round(L/2)+1),0.1,'loess');
- c = ft(1:round(L/2)+1);
- errores=[mean(abs(arriba-ft)) mean(abs(abajo-ft)) mean(abs((derecha-ft))) mean(abs(izquierda-ft)) mean(abs((click-ft)))];
+ c = ft(1:round(L/2));
+ pico_c=sort(findpeaks(c),'descend');
+ pico_c=pico_c(1:100,1);
+ %ddddddddddddddd
+ %errores=[mean(abs(arriba-c)) mean(abs(abajo-c)) mean(abs((derecha-c))) mean(abs(izquierda-c)) mean(abs(navegar-c))];
+ errores=[mean(abs(pico_arriba-pico_c)) mean(abs(pico_abajo-pico_c)) mean(abs((pico_derecha-pico_c))) mean(abs(pico_izquierda-pico_c)) mean(abs(pico_navegar-pico_c))];
  minimo=min(errores);
  if minimo==errores(1)
      disp('la palabra es arriba')
